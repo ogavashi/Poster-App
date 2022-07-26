@@ -1,0 +1,52 @@
+enum Sort {
+  asc
+  desc
+}
+
+input ProductOrderByInput {
+  title: Sort
+  id: Sort
+}
+
+type Products {
+  productList: [Product!]!
+  count: Int!
+}
+
+type Query {
+  version: String!
+  products(filter: String, skip: Int, take: Int, orderBy: ProductOrderByInput): Products
+  reviews: [Review!]!
+}
+
+input ProductInput {
+  title: String!
+  price: Float!
+}
+
+input ReviewInput {
+  text: String!
+  productId: Int!
+}
+
+type Mutation {
+  createProduct(product: ProductInput!): Product!
+  createReview(review: ReviewInput!): Review!
+}
+
+type Subscription {
+  newProduct: Product
+}
+
+type Product {
+  id: Int!
+  title: String!
+  price: Float!
+  reviews: [Review!]!
+}
+
+type Review {
+  id: Int!
+  text: String!
+  product: Product!
+}
