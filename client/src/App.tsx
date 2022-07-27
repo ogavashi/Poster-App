@@ -1,25 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { AppContext } from "./context";
+
+import Messages from "./pages/Posts";
 
 function App() {
+  const [postValue, setPostValue] = useState("");
+  const [replyValue, setReplyValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [postId, setPostId] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const [sortBy, setSortBy] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [take, setTake] = useState(4);
+  const [skip, setSkip] = useState(0);
+  const [page, setPage] = useState(1);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider
+      value={{
+        postValue,
+        setPostValue,
+        isVisible,
+        setIsVisible,
+        replyValue,
+        setReplyValue,
+        postId,
+        setPostId,
+        searchValue,
+        setSearchValue,
+        sortBy,
+        setSortBy,
+        sortOrder,
+        setSortOrder,
+        take,
+        setTake,
+        skip,
+        setSkip,
+        page,
+        setPage,
+      }}
+    >
+      <div className="wrapper">
+        <Header />
+        <Messages />
+        <Footer />
+      </div>
+    </AppContext.Provider>
   );
 }
 
