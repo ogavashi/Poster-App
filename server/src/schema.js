@@ -14,6 +14,7 @@ const typeDefs = /* GraphQL */ `
     title: Sort
     id: Sort
     likes: Sort
+    dislikes: Sort
     createdAt: Sort
   }
 

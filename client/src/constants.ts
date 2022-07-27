@@ -1,3 +1,3 @@
 export const orderBy = {
-  createdAt: "asc",
+  id: "asc",
 };

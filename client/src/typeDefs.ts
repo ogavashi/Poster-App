@@ -8,6 +8,7 @@ export const typeDefs = gql`
   input PostOrderByInput {
     title: Sort
     id: Sort
+    likes: Sort
   }
 
   input PostInput {

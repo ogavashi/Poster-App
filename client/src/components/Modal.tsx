@@ -2,37 +2,39 @@ import { useMutation } from "@apollo/client";
 import { ChangeEvent, useContext } from "react";
 import { AppContext } from "../context";
 import { CREATE_REPLY, GET_POSTS } from "../queries";
-import { orderBy } from "../constants";
 import { Post } from "../types";
 import { toast } from "react-toastify";
 
-const updatePostsStore =
-  (postId: string) =>
-  (cache: any, { data: { createReply } }: any) => {
-    const { posts } = cache.readQuery({
-      query: GET_POSTS,
-      variables: { orderBy },
-    });
-
-    const updatedPosts = posts.postsList.map((item: Post) => {
-      if (item.id === postId) {
-        return {
-          ...item,
-          replies: [...item.replies, createReply],
-        };
-      }
-      return item;
-    });
-
-    cache.writeQuery({
-      query: GET_POSTS,
-      variables: { orderBy },
-      data: { posts: { ...posts, postsList: updatedPosts } },
-    });
-  };
-
 const Modal = () => {
-  const { setIsVisible, postId, replyValue, setReplyValue } = useContext(AppContext);
+  const { setIsVisible, postId, replyValue, setReplyValue, sortBy, sortOrder, searchValue } =
+    useContext(AppContext);
+
+  const orderBy = sortBy ? { [sortBy]: sortOrder } : {};
+
+  const updatePostsStore =
+    (postId: string) =>
+    (cache: any, { data: { createReply } }: any) => {
+      const { posts } = cache.readQuery({
+        query: GET_POSTS,
+        variables: { orderBy, filter: searchValue },
+      });
+
+      const updatedPosts = posts.postsList.map((item: Post) => {
+        if (item.id === postId) {
+          return {
+            ...item,
+            replies: [...item.replies, createReply],
+          };
+        }
+        return item;
+      });
+
+      cache.writeQuery({
+        query: GET_POSTS,
+        variables: { orderBy },
+        data: { posts: { ...posts, postsList: updatedPosts } },
+      });
+    };
 
   const [createReply] = useMutation(CREATE_REPLY, {
     update: updatePostsStore(postId),
@@ -69,7 +71,6 @@ const Modal = () => {
     }
   };
 
-  
   return (
     <div className="modal">
       <span onClick={() => setIsVisible(false)} className="modal-close">

@@ -9,18 +9,25 @@ import {
   NEW_LIKE_REPLY,
   NEW_POST,
 } from "../queries";
-import { orderBy } from "../constants";
 import { Post, PostsList, Reply } from "../types";
 import PostElement from "../components/PostElement";
 import { useContext, useEffect } from "react";
 import Modal from "../components/Modal";
 import { AppContext } from "../context";
+import useDebounce from "../hooks/useDebounce";
 
 const Posts = () => {
-  const { isVisible } = useContext(AppContext);
+  const { isVisible, searchValue, sortBy, sortOrder } = useContext(AppContext);
+
+  const debouncedValue = useDebounce<string>(searchValue);
+
+  const orderBy = sortBy ? { [sortBy]: sortOrder } : {};
 
   const { loading, error, data, subscribeToMore } = useQuery(GET_POSTS, {
-    variables: { orderBy },
+    variables: {
+      orderBy: orderBy,
+      filter: debouncedValue,
+    },
   });
 
   useEffect(() => {
@@ -133,7 +140,7 @@ const Posts = () => {
     });
   }, [subscribeToMore]);
 
-  const { postsList }: PostsList = loading ? { postsList: [] } : data.posts;
+  const { postsList }: PostsList = loading || error ? { postsList: [] } : data.posts;
 
   const posts = postsList.map((post) => <PostElement post={post} key={post.id} />);
 
