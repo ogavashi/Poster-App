@@ -21,6 +21,7 @@ export type Post = {
   text: string
   likes: number
   dislikes: number
+  createdAt: Date
 }
 
 /**
@@ -874,6 +875,7 @@ export namespace Prisma {
     text: string | null
     likes: number | null
     dislikes: number | null
+    createdAt: Date | null
   }
 
   export type PostMaxAggregateOutputType = {
@@ -881,6 +883,7 @@ export namespace Prisma {
     text: string | null
     likes: number | null
     dislikes: number | null
+    createdAt: Date | null
   }
 
   export type PostCountAggregateOutputType = {
@@ -888,6 +891,7 @@ export namespace Prisma {
     text: number
     likes: number
     dislikes: number
+    createdAt: number
     _all: number
   }
 
@@ -907,6 +911,7 @@ export namespace Prisma {
     text?: true
     likes?: true
     dislikes?: true
+    createdAt?: true
   }
 
   export type PostMaxAggregateInputType = {
@@ -914,6 +919,7 @@ export namespace Prisma {
     text?: true
     likes?: true
     dislikes?: true
+    createdAt?: true
   }
 
   export type PostCountAggregateInputType = {
@@ -921,6 +927,7 @@ export namespace Prisma {
     text?: true
     likes?: true
     dislikes?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -1021,6 +1028,7 @@ export namespace Prisma {
     text: string
     likes: number
     dislikes: number
+    createdAt: Date
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
     _sum: PostSumAggregateOutputType | null
@@ -1048,6 +1056,7 @@ export namespace Prisma {
     likes?: boolean
     dislikes?: boolean
     replies?: boolean | ReplyFindManyArgs
+    createdAt?: boolean
     _count?: boolean | PostCountOutputTypeArgs
   }
 
@@ -2893,7 +2902,8 @@ export namespace Prisma {
     id: 'id',
     text: 'text',
     likes: 'likes',
-    dislikes: 'dislikes'
+    dislikes: 'dislikes',
+    createdAt: 'createdAt'
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -2940,6 +2950,7 @@ export namespace Prisma {
     likes?: IntFilter | number
     dislikes?: IntFilter | number
     replies?: ReplyListRelationFilter
+    createdAt?: DateTimeFilter | Date | string
   }
 
   export type PostOrderByWithRelationInput = {
@@ -2948,6 +2959,7 @@ export namespace Prisma {
     likes?: SortOrder
     dislikes?: SortOrder
     replies?: ReplyOrderByRelationAggregateInput
+    createdAt?: SortOrder
   }
 
   export type PostWhereUniqueInput = {
@@ -2959,6 +2971,7 @@ export namespace Prisma {
     text?: SortOrder
     likes?: SortOrder
     dislikes?: SortOrder
+    createdAt?: SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -2974,6 +2987,7 @@ export namespace Prisma {
     text?: StringWithAggregatesFilter | string
     likes?: IntWithAggregatesFilter | number
     dislikes?: IntWithAggregatesFilter | number
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
   export type ReplyWhereInput = {
@@ -3031,6 +3045,7 @@ export namespace Prisma {
     likes: number
     dislikes: number
     replies?: ReplyCreateNestedManyWithoutPostInput
+    createdAt?: Date | string
   }
 
   export type PostUncheckedCreateInput = {
@@ -3039,6 +3054,7 @@ export namespace Prisma {
     likes: number
     dislikes: number
     replies?: ReplyUncheckedCreateNestedManyWithoutPostInput
+    createdAt?: Date | string
   }
 
   export type PostUpdateInput = {
@@ -3046,6 +3062,7 @@ export namespace Prisma {
     likes?: IntFieldUpdateOperationsInput | number
     dislikes?: IntFieldUpdateOperationsInput | number
     replies?: ReplyUpdateManyWithoutPostNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateInput = {
@@ -3053,6 +3070,7 @@ export namespace Prisma {
     likes?: IntFieldUpdateOperationsInput | number
     dislikes?: IntFieldUpdateOperationsInput | number
     replies?: ReplyUncheckedUpdateManyWithoutPostNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostCreateManyInput = {
@@ -3060,18 +3078,21 @@ export namespace Prisma {
     text: string
     likes: number
     dislikes: number
+    createdAt?: Date | string
   }
 
   export type PostUpdateManyMutationInput = {
     text?: StringFieldUpdateOperationsInput | string
     likes?: IntFieldUpdateOperationsInput | number
     dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateManyInput = {
     text?: StringFieldUpdateOperationsInput | string
     likes?: IntFieldUpdateOperationsInput | number
     dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReplyCreateInput = {
@@ -3157,6 +3178,17 @@ export namespace Prisma {
     none?: ReplyWhereInput
   }
 
+  export type DateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
   export type ReplyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -3166,6 +3198,7 @@ export namespace Prisma {
     text?: SortOrder
     likes?: SortOrder
     dislikes?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type PostAvgOrderByAggregateInput = {
@@ -3178,6 +3211,7 @@ export namespace Prisma {
     text?: SortOrder
     likes?: SortOrder
     dislikes?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type PostMinOrderByAggregateInput = {
@@ -3185,6 +3219,7 @@ export namespace Prisma {
     text?: SortOrder
     likes?: SortOrder
     dislikes?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type PostSumOrderByAggregateInput = {
@@ -3224,6 +3259,20 @@ export namespace Prisma {
     _sum?: NestedIntFilter
     _min?: NestedIntFilter
     _max?: NestedIntFilter
+  }
+
+  export type DateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
   }
 
   export type PostRelationFilter = {
@@ -3305,6 +3354,10 @@ export namespace Prisma {
     deleteMany?: Enumerable<ReplyScalarWhereInput>
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type ReplyUncheckedUpdateManyWithoutPostNestedInput = {
     create?: XOR<Enumerable<ReplyCreateWithoutPostInput>, Enumerable<ReplyUncheckedCreateWithoutPostInput>>
     connectOrCreate?: Enumerable<ReplyCreateOrConnectWithoutPostInput>
@@ -3358,6 +3411,17 @@ export namespace Prisma {
     not?: NestedIntFilter | number
   }
 
+  export type NestedDateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
   export type NestedStringWithAggregatesFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -3400,6 +3464,20 @@ export namespace Prisma {
     gt?: number
     gte?: number
     not?: NestedFloatFilter | number
+  }
+
+  export type NestedDateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
   }
 
   export type ReplyCreateWithoutPostInput = {
@@ -3457,6 +3535,7 @@ export namespace Prisma {
     text: string
     likes: number
     dislikes: number
+    createdAt?: Date | string
   }
 
   export type PostUncheckedCreateWithoutRepliesInput = {
@@ -3464,6 +3543,7 @@ export namespace Prisma {
     text: string
     likes: number
     dislikes: number
+    createdAt?: Date | string
   }
 
   export type PostCreateOrConnectWithoutRepliesInput = {
@@ -3480,12 +3560,14 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     likes?: IntFieldUpdateOperationsInput | number
     dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateWithoutRepliesInput = {
     text?: StringFieldUpdateOperationsInput | string
     likes?: IntFieldUpdateOperationsInput | number
     dislikes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReplyCreateManyPostInput = {

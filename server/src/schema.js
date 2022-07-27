@@ -13,6 +13,8 @@ const typeDefs = /* GraphQL */ `
   input PostOrderByInput {
     title: Sort
     id: Sort
+    likes: Sort
+    createdAt: Sort
   }
 
   type Posts {
@@ -62,6 +64,7 @@ const typeDefs = /* GraphQL */ `
     likes: Int!
     dislikes: Int!
     replies: [Reply!]!
+    createdAt: String!
   }
 
   type Reply {

@@ -91,7 +91,8 @@ exports.Prisma.PostScalarFieldEnum = makeEnum({
   id: 'id',
   text: 'text',
   likes: 'likes',
-  dislikes: 'dislikes'
+  dislikes: 'dislikes',
+  createdAt: 'createdAt'
 });
 
 exports.Prisma.ReplyScalarFieldEnum = makeEnum({

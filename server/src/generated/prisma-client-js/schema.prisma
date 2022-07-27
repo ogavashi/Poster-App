@@ -12,11 +12,12 @@ datasource db {
 }
 
 model Post {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  text     String
-  likes    Int
-  dislikes Int
-  replies  Reply[]
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  text      String
+  likes     Int
+  dislikes  Int
+  replies   Reply[]
+  createdAt DateTime @default(now())
 }
 
 model Reply {
