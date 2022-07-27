@@ -15,9 +15,11 @@ import { useContext, useEffect } from "react";
 import Modal from "../components/Modal";
 import { AppContext } from "../context";
 import useDebounce from "../hooks/useDebounce";
+import { Pagination } from "../components/Pagination";
 
 const Posts = () => {
-  const { isVisible, searchValue, sortBy, sortOrder } = useContext(AppContext);
+  const { isVisible, searchValue, sortBy, sortOrder, setSkip, skip, take, page, setPage } =
+    useContext(AppContext);
 
   const debouncedValue = useDebounce<string>(searchValue);
 
@@ -27,6 +29,8 @@ const Posts = () => {
     variables: {
       orderBy: orderBy,
       filter: debouncedValue,
+      skip: skip,
+      take: take,
     },
   });
 
@@ -140,9 +144,19 @@ const Posts = () => {
     });
   }, [subscribeToMore]);
 
+  const onChangePage = (value: number) => {
+    setPage(value);
+    const newSkip = take * (value - 1);
+    setSkip(newSkip);
+  };
+
   const { postsList }: PostsList = loading || error ? { postsList: [] } : data.posts;
 
   const posts = postsList.map((post) => <PostElement post={post} key={post.id} />);
+
+  const ITEMS_PER_PAGE = 4;
+
+  const pageAmount = loading || error ? 1 : Math.ceil(data.posts.count / ITEMS_PER_PAGE);
 
   return (
     <div className="posts-page">
@@ -156,6 +170,9 @@ const Posts = () => {
           posts
         )}
       </div>
+      {!loading && !error && posts.length !== 0 && (
+        <Pagination currentPage={page} onChangePage={onChangePage} pageCount={pageAmount} />
+      )}
       <WritePost />
       {isVisible && <Modal />}
     </div>

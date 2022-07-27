@@ -13,6 +13,9 @@ function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [take, setTake] = useState(4);
+  const [skip, setSkip] = useState(0);
+  const [page, setPage] = useState(1);
 
   return (
     <AppContext.Provider
@@ -31,6 +34,12 @@ function App() {
         setSortBy,
         sortOrder,
         setSortOrder,
+        take,
+        setTake,
+        skip,
+        setSkip,
+        page,
+        setPage,
       }}
     >
       <div className="wrapper">

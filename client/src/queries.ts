@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_POSTS = gql`
-  query getPosts($orderBy: PostOrderByInput!, $filter: String) {
-    posts(orderBy: $orderBy, filter: $filter) {
+  query getPosts($orderBy: PostOrderByInput!, $filter: String, $skip: Int, $take: Int) {
+    posts(orderBy: $orderBy, filter: $filter, skip: $skip, take: $take) {
       postsList {
         id
         text

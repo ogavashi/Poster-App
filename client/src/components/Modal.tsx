@@ -6,8 +6,17 @@ import { Post } from "../types";
 import { toast } from "react-toastify";
 
 const Modal = () => {
-  const { setIsVisible, postId, replyValue, setReplyValue, sortBy, sortOrder, searchValue } =
-    useContext(AppContext);
+  const {
+    setIsVisible,
+    postId,
+    replyValue,
+    setReplyValue,
+    sortBy,
+    sortOrder,
+    searchValue,
+    skip,
+    take,
+  } = useContext(AppContext);
 
   const orderBy = sortBy ? { [sortBy]: sortOrder } : {};
 
@@ -16,7 +25,7 @@ const Modal = () => {
     (cache: any, { data: { createReply } }: any) => {
       const { posts } = cache.readQuery({
         query: GET_POSTS,
-        variables: { orderBy, filter: searchValue },
+        variables: { orderBy, filter: searchValue, skip: skip, take: take },
       });
 
       const updatedPosts = posts.postsList.map((item: Post) => {
