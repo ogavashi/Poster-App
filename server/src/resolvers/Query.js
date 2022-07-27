@@ -1,8 +1,24 @@
-const version = () => "1.1.0";
+const posts = async (_parent, args, context, _info) => {
+  const { filter, skip, take, orderBy } = args;
 
-const products = async (_parent, _args, context, _info) => {
-  const foudProducts = await context.prisma.product.findMany();
-  return foudProducts;
+  const where = filter
+    ? {
+        text: filter,
+      }
+    : {};
+
+  const postsList = await context.prisma.post.findMany({
+    where,
+    include: {
+      replies: true,
+    },
+    skip,
+    take,
+    orderBy,
+  });
+  const count = await context.prisma.post.count();
+
+  return { postsList, count };
 };
 
-export const Query = { version, products };
+export const Query = { posts };

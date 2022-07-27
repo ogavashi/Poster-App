@@ -11,8 +11,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  price Float
+model Post {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  text     String
+  likes    Int
+  dislikes Int
+  replies  Reply[]
+}
+
+model Reply {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  text     String
+  likes    Int
+  dislikes Int
+  post     Post   @relation(fields: [postId], references: [id])
+  postId   String @db.ObjectId
 }
